@@ -104,13 +104,14 @@ impl TaskPool {
     /// caller can spawn long-running future writing results to some channel / event queue
     /// and simply call detach on returned Task (like AssetServer does) - spawned future
     /// can write results to some channel / event queue.
-    pub fn spawn<T>(&self, future: impl Future<Output = T> + 'static) -> FakeTask
+    pub fn spawn<T>(&self, _future: impl Future<Output = T> + 'static) -> FakeTask
     where
         T: 'static,
     {
-        wasm_bindgen_futures::spawn_local(async move {
-            future.await;
-        });
+        // Will disabling this be a problem? We'll see!
+        // wasm_bindgen_futures::spawn_local(async move {
+        //     future.await;
+        // });
         FakeTask
     }
 

@@ -9,9 +9,9 @@ license = "MIT OR Apache-2.0"
 keywords = ["bevy"]
 
 [dependencies]
-ahash = "0.7.0"
+ahash = { version = "0.7.0", features = ["compile-time-rng"] }
 tracing = { version = "0.1", default-features = false, features = ["std"] }
-instant = { version = "0.1", features = ["wasm-bindgen"] }
+instant = { version = "0.1" } # , features = ["wasm-bindgen"] }
 uuid = { version = "1.1", features = ["v4", "serde"] }
 hashbrown = { version = "0.12", features = ["serde"] }
 
