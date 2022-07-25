@@ -8,6 +8,7 @@
 //! [asset server]: struct.AssetServer.html
 //! [asset storage]: struct.Assets.html
 
+#![feature(derive_default_enum)]
 #![warn(missing_docs)]
 
 mod asset_server;

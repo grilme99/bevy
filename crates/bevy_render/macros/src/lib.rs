@@ -1,3 +1,5 @@
+#![feature(derive_default_enum)]
+
 mod as_bind_group;
 mod extract_resource;
 

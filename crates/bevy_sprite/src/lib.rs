@@ -1,3 +1,5 @@
+#![feature(derive_default_enum)]
+
 mod bundle;
 mod dynamic_texture_atlas_builder;
 mod mesh2d;

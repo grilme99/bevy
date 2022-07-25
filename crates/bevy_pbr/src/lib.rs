@@ -1,3 +1,5 @@
+#![feature(derive_default_enum)]
+
 pub mod wireframe;
 
 mod alpha;

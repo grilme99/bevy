@@ -1,3 +1,4 @@
+#![feature(derive_default_enum)]
 #![warn(clippy::undocumented_unsafe_blocks)]
 #![doc = include_str!("../README.md")]
 
