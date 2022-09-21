@@ -130,6 +130,6 @@ impl PluginGroup for MinimalPlugins {
         PluginGroupBuilder::start::<Self>()
             .add(bevy_core::CorePlugin::default())
             .add(bevy_time::TimePlugin::default())
-            .add(bevy_app::ScheduleRunnerPlugin::default())
+            // .add(bevy_app::ScheduleRunnerPlugin::default())
     }
 }

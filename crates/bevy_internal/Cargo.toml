@@ -98,6 +98,8 @@ bevy_ui = { path = "../bevy_ui", optional = true, version = "0.9.0" }
 bevy_winit = { path = "../bevy_winit", optional = true, version = "0.9.0" }
 bevy_gilrs = { path = "../bevy_gilrs", optional = true, version = "0.9.0" }
 
+getrandom = { version = "0.2.7", features = ["custom"] }
+
 [target.'cfg(target_os = "android")'.dependencies]
 # This version *must* be the same as the version used by winit,
 # or Android will break: https://github.com/rust-windowing/winit#android
