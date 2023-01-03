@@ -31,9 +31,8 @@ pub use bevy_utils::tracing::{
 };
 
 use bevy_app::{App, Plugin};
+use roblox_rs::{println, roblox_print};
 use tracing_log::LogTracer;
-#[cfg(feature = "tracing-chrome")]
-use tracing_subscriber::fmt::{format::DefaultFields, FormattedFields};
 use tracing_subscriber::{prelude::*, registry::Registry, EnvFilter};
 
 /// Adds logging to Apps. This plugin is part of the `DefaultPlugins`. Adding
@@ -126,30 +125,6 @@ impl Plugin for LogPlugin {
 
         #[cfg(all(not(target_arch = "wasm32"), not(target_os = "android")))]
         {
-            #[cfg(feature = "tracing-chrome")]
-            let chrome_layer = {
-                let mut layer = tracing_chrome::ChromeLayerBuilder::new();
-                if let Ok(path) = std::env::var("TRACE_CHROME") {
-                    layer = layer.file(path);
-                }
-                let (chrome_layer, guard) = layer
-                    .name_fn(Box::new(|event_or_span| match event_or_span {
-                        tracing_chrome::EventOrSpan::Event(event) => event.metadata().name().into(),
-                        tracing_chrome::EventOrSpan::Span(span) => {
-                            if let Some(fields) =
-                                span.extensions().get::<FormattedFields<DefaultFields>>()
-                            {
-                                format!("{}: {}", span.metadata().name(), fields.fields.as_str())
-                            } else {
-                                span.metadata().name().into()
-                            }
-                        }
-                    }))
-                    .build();
-                app.world.insert_non_send_resource(guard);
-                chrome_layer
-            };
-
             #[cfg(feature = "tracing-tracy")]
             let tracy_layer = tracing_tracy::TracyLayer::new();
 
@@ -165,8 +140,6 @@ impl Plugin for LogPlugin {
 
             let subscriber = subscriber.with(fmt_layer);
 
-            #[cfg(feature = "tracing-chrome")]
-            let subscriber = subscriber.with(chrome_layer);
             #[cfg(feature = "tracing-tracy")]
             let subscriber = subscriber.with(tracy_layer);
 
