@@ -16,7 +16,21 @@ bevy_app = { path = "../bevy_app", version = "0.9.0" }
 bevy_utils = { path = "../bevy_utils", version = "0.9.0" }
 bevy_ecs = { path = "../bevy_ecs", version = "0.9.0" }
 
-tracing-subscriber = {version = "0.3.1", features = ["registry", "env-filter"]}
+# tracing-subscriber = {version = "0.3.1", features = ["registry", "env-filter"]}
+tracing-subscriber = { version = "0.3.1", default-features = false, features = [
+    "alloc",
+    # Both of these features cause the compiler crash
+    # "ansi",
+    # "fmt",
+    "nu-ansi-term",
+    "registry",
+    "sharded-slab",
+    "smallvec",
+    "std",
+    "thread_local",
+    "tracing-log",
+    "env-filter",
+] }
 tracing-chrome = { version = "0.7.0", optional = true }
 tracing-tracy = { version = "0.10.0", optional = true }
 tracing-log = "0.1.2"
