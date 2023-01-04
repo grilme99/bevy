@@ -104,14 +104,14 @@ impl Default for LogPlugin {
 impl Plugin for LogPlugin {
     #[cfg_attr(not(feature = "tracing-chrome"), allow(unused_variables))]
     fn build(&self, app: &mut App) {
-        #[cfg(feature = "trace")]
-        {
-            let old_handler = panic::take_hook();
-            panic::set_hook(Box::new(move |infos| {
-                println!("{}", tracing_error::SpanTrace::capture());
-                old_handler(infos);
-            }));
-        }
+        // #[cfg(feature = "trace")]
+        // {
+        //     let old_handler = panic::take_hook();
+        //     panic::set_hook(Box::new(move |infos| {
+        //         println!("{}", tracing_error::SpanTrace::capture());
+        //         old_handler(infos);
+        //     }));
+        // }
 
         let finished_subscriber;
         let default_filter = { format!("{},{}", self.level, self.filter) };
