@@ -31,9 +31,8 @@ pub use bevy_utils::tracing::{
 };
 
 use bevy_app::{App, Plugin};
-use roblox_rs::{println, roblox_print};
 use tracing_log::LogTracer;
-use tracing_subscriber::{prelude::*, registry::Registry, EnvFilter};
+use tracing_subscriber::{prelude::*, registry::Registry};
 
 /// Adds logging to Apps. This plugin is part of the `DefaultPlugins`. Adding
 /// this plugin will setup a collector appropriate to your target platform:
@@ -115,10 +114,10 @@ impl Plugin for LogPlugin {
 
         let finished_subscriber;
         let default_filter = { format!("{},{}", self.level, self.filter) };
-        let filter_layer = EnvFilter::try_from_default_env()
-            .or_else(|_| EnvFilter::try_new(&default_filter))
-            .unwrap();
-        let subscriber = Registry::default().with(filter_layer);
+        // let filter_layer = EnvFilter::try_from_default_env()
+        //     .or_else(|_| EnvFilter::try_new(&default_filter))
+        //     .unwrap();
+        let subscriber = Registry::default(); // .with(filter_layer);
 
         #[cfg(feature = "trace")]
         let subscriber = subscriber.with(tracing_error::ErrorLayer::default());
