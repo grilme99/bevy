@@ -31,6 +31,8 @@ use std::fmt::Debug;
 use crate::{system::IntoSystem, world::World};
 use bevy_utils::HashMap;
 
+use roblox_rs::{println, *};
+
 /// A container of [`Stage`]s set to be run in a linear order.
 ///
 /// Since `Schedule` implements the [`Stage`] trait, it can be inserted into another schedule.
@@ -366,8 +368,11 @@ impl Schedule {
         for label in &self.stage_order {
             #[cfg(feature = "trace")]
             let _stage_span = bevy_utils::tracing::info_span!("stage", name = ?label).entered();
-            let stage = self.stages.get_mut(label).unwrap();
-            stage.run(world);
+            if let Some(stage) = self.stages.get_mut(label) {
+                stage.run(world);
+            } else {
+                println!("Stage label {label:?} does not exist in known stages");
+            }
         }
     }
 

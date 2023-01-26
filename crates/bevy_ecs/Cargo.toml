@@ -27,6 +27,7 @@ fixedbitset = "0.4"
 fxhash = "0.2"
 downcast-rs = "1.2"
 serde = { version = "1", features = ["derive"] }
+roblox_rs = { git = "https://github.com/roblox-rs/bindings", version = "0.1.0", default-features = false }
 
 [dev-dependencies]
 rand = "0.8"
